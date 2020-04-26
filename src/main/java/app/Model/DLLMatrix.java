@@ -1,7 +1,14 @@
 package app.Model;
 
 public class DLLMatrix {
-    private DLLMatrix next;
-    private DLLMatrix prev;
+    private DLLNode first;
+
+    public DLLMatrix(int[][] matrix) {
+        init(matrix);
+    }
+
+    private void init(int[][] matrix) {
+
+    }
 
 }
