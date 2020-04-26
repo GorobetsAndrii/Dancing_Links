@@ -1,49 +1,69 @@
 package app.Model;
 
 public class DLLNode {
-    private DLLMatrix right;
-    private DLLMatrix left;
-    private DLLMatrix up;
-    private DLLMatrix down;
+    private DLLNode right;
+    private DLLNode left;
+    private DLLNode up;
+    private DLLNode down;
     private boolean data;
+    private int row;
+    private int column;
 
-    public DLLNode(Boolean data) {
+    public DLLNode(Boolean data, int row, int column) {
         this.data = data;
+        this.row = row;
+        this.column = column;
     }
 
-    public DLLMatrix getRight() {
+    public DLLNode getRight() {
         return right;
     }
 
-    public DLLMatrix getLeft() {
+    public DLLNode getLeft() {
         return left;
     }
 
-    public DLLMatrix getUp() {
+    public DLLNode getUp() {
         return up;
     }
 
-    public DLLMatrix getDown() {
+    public DLLNode getDown() {
         return down;
     }
 
-    public boolean isData() {
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public boolean getData() {
         return data;
     }
 
-    public void setRight(DLLMatrix right) {
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public void setRight(DLLNode right) {
         this.right = right;
     }
 
-    public void setLeft(DLLMatrix left) {
+    public void setLeft(DLLNode left) {
         this.left = left;
     }
 
-    public void setUp(DLLMatrix up) {
+    public void setUp(DLLNode up) {
         this.up = up;
     }
 
-    public void setDown(DLLMatrix down) {
+    public void setDown(DLLNode down) {
         this.down = down;
     }
 
