@@ -27,7 +27,6 @@ public class App extends Application {
                 {1, 0, 1}};
 
         DLLMatrix m = new DLLMatrix(arr);
-        //m.display();
-        System.out.println(m.getHead().getDown().getRight().getColumn());
+        System.out.println(m.getHead().getDown().getDown().getRight().getColumn());
     }
 }

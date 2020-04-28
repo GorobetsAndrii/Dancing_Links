@@ -6,7 +6,7 @@ public class DLLMatrix {
     public DLLMatrix(int[][] matrix) throws Exception {
         createHeaders(matrix[0].length);
         init(matrix);
-        setLU();
+        setLR();
     }
 
     // Headers initialization
@@ -42,26 +42,41 @@ public class DLLMatrix {
         }
     }
 
-    // Creating right-left pointers
-    private void setLU() {
+    // Creating left-right pointers
+    private void setLR() {
         DLLHeader tmp = head;
 
         while (tmp.getRight() != null) {
             DLLNode D1 = tmp.getDown();
-            DLLNode D2 = tmp;
-            for (int i = 0; i < tmp.getNumberOfElements(); ++i) {
-                if (D2.getRight() == null) break;
-                D2 = D2.getRight().getDown();
-                while (D2.getRow() < D1.getRow() && D2.getDown() != null) D2 = D2.getDown();
+            DLLNode D2 = tmp.getRight().getDown();
+
+            while (D1 != null) {
                 if (D1.getRow() == D2.getRow()) {
                     D1.setRight(D2);
                     D2.setLeft(D1);
-                } else i--;
+                    D1 = D1.getDown();
+                    D2 = tmp.getRight().getDown();
+                } else if (D1.getRow() > D2.getRow()) {
+                    while (D2.getDown() != null && D2.getRow() < D1.getRow()) D2 = D2.getDown();
+                    if (D1.getRow() != D2.getRow()) {
+                        while (D2.getUp() != null) D2 = D2.getUp();
+                        if (D2.getRight() == null) D2 = null;
+                        else D2 = D2.getRight().getDown();
+                    }
+                } else {
+                    while (D2.getUp() != null) D2 = D2.getUp();
+                    if (D2.getRight() == null) D2 = null;
+                    else D2 = D2.getRight().getDown();
+                }
+                if (D2 == null) {
+                    D1 = D1.getDown();
+                    D2 = tmp.getRight().getDown();
+                }
             }
             tmp = (DLLHeader) tmp.getRight();
         }
     }
-
+    /*
     public void display() {
         DLLNode D = head.getDown();
         while (D != null) {
@@ -75,6 +90,7 @@ public class DLLMatrix {
             D = D.getDown();
         }
     }
+     */
 
     public DLLHeader getHead() {
         return head;
