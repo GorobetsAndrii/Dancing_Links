@@ -1,59 +1,70 @@
 package app.Model;
 
 public class DLLMatrix {
-    private DLLNode head;
+    private DLLHeader head;
 
     public DLLMatrix(int[][] matrix) {
-        head = init(matrix, 0, 0);
+        createHeaders(matrix[0].length);
+        init(matrix);
         setLU();
     }
 
-    private DLLNode init(int[][] matrix, int i, int j) {
-        if (i > matrix.length - 1 || j > matrix[0].length - 1) return null;
-        DLLNode node = new DLLNode(matrix[i][j] == 1, i, j);
-        DLLNode D = node;
-
-
-        for (i = 0; i < matrix.length; ++i) {
-            j = 0;
-            if (i < matrix.length - 1) {
-                D.setDown(new DLLNode(matrix[i + 1][j] == 1, i + 1, j));
-                D.getDown().setUp(D);
-            }
-            DLLNode R = D;
-            for (j = 1; j < matrix[0].length; ++j) {
-                R.setRight(new DLLNode(matrix[i][j] == 1, i, j));
-                R.getRight().setLeft(R);
-                R = R.getRight();
-            }
-            D = D.getDown();
+    private void createHeaders(int length) {
+        DLLHeader header = new DLLHeader(0);
+        head = header;
+        for (int i = 1; i < length; ++i) {
+            header.setRight(new DLLHeader(i));
+            header.getRight().setLeft(header);
+            header = header.getRight();
         }
+    }
 
-        return node;
+    private void init(int[][] matrix) {
+        DLLHeader node = head;
+        DLLNode tmp;
+        int counter = 1;
+
+        while (node.getRight() != null) {
+            node.setDown(new DLLNode(matrix[0][node.getColumn()] == 1, 0, node.getColumn()));
+            tmp = node.getDown();
+            for (int i = 1; i < matrix.length; ++i) {
+                if (matrix[i][node.getColumn()] == 1) {
+                    tmp.setDown(new DLLNode(matrix[i][node.getColumn()] == 1, i, node.getColumn()));
+                    tmp.getDown().setUp(tmp);
+                    counter++;
+                }
+            }
+            node.setNumberOfElements(counter);
+            node = node.getRight();
+        }
     }
 
     private void setLU() {
-        DLLNode tmp = head;
+        DLLHeader tmp = head;
 
-        while (head.getDown() != null) {
-            DLLNode R1 = head.getRight();
-            DLLNode R2 = head.getDown().getRight();
-            while (R1 != null) {
-                if (R1.getDown() == null) {
-                    R1.setDown(R2);
-                    R2.setUp(R1);
+        while (tmp.getRight() != null) {
+            DLLNode D1 = tmp.getDown();
+            DLLNode D2 = tmp.getRight().getDown();
+            while (D1 != null && D2 != null) {
+                if (D1.getRow() == D2.getRow()) {
+                    D1.setRight(D2);
+                    D2.setLeft(D1);
                 }
-                R1 = R1.getRight();
-                R2 = R2.getRight();
+                if (D1.getRow() > D2.getRow()) {
+                    D2 = D2.getDown();
+                } else if (D1.getRow() < D2.getRow()) {
+                    D1 = D1.getDown();
+                } else {
+                    D1 = D1.getDown();
+                    D2 = D2.getDown();
+                }
             }
-            head = head.getDown();
+            tmp = tmp.getRight();
         }
-
-        head = tmp;
     }
 
     public void display() {
-        DLLNode D = head;
+        DLLNode D = head.getDown();
         while (D != null) {
             DLLNode R = D;
 
@@ -66,7 +77,7 @@ public class DLLMatrix {
         }
     }
 
-    public DLLNode getHead() {
+    public DLLHeader getHead() {
         return head;
     }
 }
