@@ -1,16 +1,14 @@
-package app.Model;
+package app.model;
 
 public class DLLNode {
     private DLLNode right;
     private DLLNode left;
     private DLLNode up;
     private DLLNode down;
-    private boolean data;
     private int row;
     private int column;
 
-    public DLLNode(Boolean data, int row, int column) {
-        this.data = data;
+    public DLLNode(int row, int column) {
         this.row = row;
         this.column = column;
     }
@@ -39,10 +37,6 @@ public class DLLNode {
         return column;
     }
 
-    public boolean getData() {
-        return data;
-    }
-
     public void setRow(int row) {
         this.row = row;
     }
@@ -67,7 +61,4 @@ public class DLLNode {
         this.down = down;
     }
 
-    public void setData(boolean data) {
-        this.data = data;
-    }
 }
