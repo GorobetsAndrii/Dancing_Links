@@ -54,21 +54,15 @@ public class DLLMatrix {
                 if (D1.getRow() == D2.getRow()) {
                     D1.setRight(D2);
                     D2.setLeft(D1);
-                    D1 = D1.getDown();
-                    D2 = tmp.getRight().getDown();
-                } else if (D1.getRow() > D2.getRow()) {
+                } else {
                     while (D2.getDown() != null && D2.getRow() < D1.getRow()) D2 = D2.getDown();
                     if (D1.getRow() != D2.getRow()) {
                         while (D2.getUp() != null) D2 = D2.getUp();
                         if (D2.getRight() == null) D2 = null;
                         else D2 = D2.getRight().getDown();
                     }
-                } else {
-                    while (D2.getUp() != null) D2 = D2.getUp();
-                    if (D2.getRight() == null) D2 = null;
-                    else D2 = D2.getRight().getDown();
                 }
-                if (D2 == null) {
+                if (D2 == null || D1.getRow() == D2.getRow()) {
                     D1 = D1.getDown();
                     D2 = tmp.getRight().getDown();
                 }
@@ -76,21 +70,6 @@ public class DLLMatrix {
             tmp = (DLLHeader) tmp.getRight();
         }
     }
-    /*
-    public void display() {
-        DLLNode D = head.getDown();
-        while (D != null) {
-            DLLNode R = D;
-
-            while (R != null) {
-                System.out.print(R.getColumn() + " (" + R.getRow() + ") ");
-                R = R.getRight();
-            }
-            System.out.println();
-            D = D.getDown();
-        }
-    }
-     */
 
     public DLLHeader getHead() {
         return head;

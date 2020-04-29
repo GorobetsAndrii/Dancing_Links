@@ -1,6 +1,5 @@
 package app;
 
-import app.model.DLLMatrix;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,13 +19,7 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         launch(args);
-        int arr[][] = {{1, 0, 1},
-                {0, 1, 0},
-                {1, 0, 1}};
-
-        DLLMatrix m = new DLLMatrix(arr);
-        System.out.println(m.getHead().getDown().getDown().getRight().getColumn());
     }
 }
