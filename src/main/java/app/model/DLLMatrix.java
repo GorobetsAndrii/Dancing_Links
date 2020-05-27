@@ -7,6 +7,7 @@ public class DLLMatrix {
         createHeaders(matrix[0].length);
         init(matrix);
         setLR();
+        //last2FirstUD();
     }
 
     // Headers initialization
@@ -29,7 +30,7 @@ public class DLLMatrix {
             DLLNode tmp = node;
 
             for (int i = 0; i < matrix.length; ++i) {
-                if (matrix[node.getColumn()][i] == 1) {
+                if (matrix[i][node.getColumn()] == 1) {
                     tmp.setDown(new DLLNode(i, node.getColumn()));
                     tmp.getDown().setUp(tmp);
                     tmp = tmp.getDown();
@@ -71,6 +72,20 @@ public class DLLMatrix {
         }
     }
 
+    /*
+        private void last2FirstUD(){
+            DLLHeader node = head;
+
+            while(node != null) {
+                DLLNode tmp = node;
+                while(tmp.getDown() != null) tmp = tmp.getDown();
+                tmp.setDown(node);
+                node.setUp(tmp);
+
+                node = (DLLHeader) node.getRight();
+            }
+        }
+    */
     public DLLHeader getHead() {
         return head;
     }

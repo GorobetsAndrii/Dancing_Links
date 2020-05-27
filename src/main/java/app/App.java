@@ -1,5 +1,6 @@
 package app;
 
+import app.model.Solver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +20,15 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        int[][] arr = {{0, 1, 0, 1, 0, 0},
+                {1, 0, 1, 0, 0, 0},
+                {1, 1, 1, 0, 0, 0},
+                {0, 0, 0, 1, 1, 1},
+                {0, 0, 0, 0, 1, 1}};
+
+        Solver solver = new Solver(arr);
+
         launch(args);
     }
 }

@@ -29,4 +29,17 @@ public class DLLMatrixTest {
             Assert.assertEquals(e.getMessage(), "Does not have solve");
         }
     }
+
+    /*
+    @Test
+    public void testLast2FirstUDLink() throws Exception {
+        int[][] arr = {{1, 0, 1},
+                {0, 1, 0},
+                {1, 0, 1}};
+
+        matrix = new DLLMatrix(arr);
+
+        Assert.assertEquals(matrix.getHead(), matrix.getHead().getDown().getDown().getDown());
+    }
+     */
 }
