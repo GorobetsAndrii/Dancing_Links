@@ -89,4 +89,10 @@ public class DLLMatrix {
     public DLLHeader getHead() {
         return head;
     }
+
+    public DLLHeader getHeaderFromNode(DLLNode node) {
+        DLLNode tmp = node;
+        while (tmp.getUp() != null) tmp = tmp.getUp();
+        return (DLLHeader) tmp;
+    }
 }
