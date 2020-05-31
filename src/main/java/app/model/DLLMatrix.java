@@ -7,7 +7,7 @@ public class DLLMatrix {
         createHeaders(matrix[0].length);
         init(matrix);
         setLR();
-        //last2FirstUD();
+        removeZeros();
     }
 
     // Headers initialization
@@ -32,10 +32,12 @@ public class DLLMatrix {
             for (int i = 0; i < matrix.length; ++i) {
                 if (matrix[i][node.getColumn()] == 1) {
                     tmp.setDown(new DLLNode(i, node.getColumn()));
-                    tmp.getDown().setUp(tmp);
-                    tmp = tmp.getDown();
                     counter++;
+                } else {
+                    tmp.setDown(new DLLNode(-1, node.getColumn()));
                 }
+                tmp.getDown().setUp(tmp);
+                tmp = tmp.getDown();
             }
             if (counter == 0) throw new Exception("Does not have solve");
             node.setNumberOfElements(counter);
@@ -50,44 +52,49 @@ public class DLLMatrix {
         while (tmp.getRight() != null) {
             DLLNode D1 = tmp.getDown();
             DLLNode D2 = tmp.getRight().getDown();
-
             while (D1 != null) {
-                if (D1.getRow() == D2.getRow()) {
-                    D1.setRight(D2);
-                    D2.setLeft(D1);
-                } else {
-                    while (D2.getDown() != null && D2.getRow() < D1.getRow()) D2 = D2.getDown();
-                    if (D1.getRow() != D2.getRow()) {
-                        while (D2.getUp() != null) D2 = D2.getUp();
-                        if (D2.getRight() == null) D2 = null;
-                        else D2 = D2.getRight().getDown();
-                    }
-                }
-                if (D2 == null || D1.getRow() == D2.getRow()) {
-                    D1 = D1.getDown();
-                    D2 = tmp.getRight().getDown();
-                }
+                D1.setRight(D2);
+                D2.setLeft(D1);
+                D1 = D1.getDown();
+                D2 = D2.getDown();
             }
             tmp = (DLLHeader) tmp.getRight();
         }
     }
 
-    /*
-        private void last2FirstUD(){
-            DLLHeader node = head;
-
-            while(node != null) {
-                DLLNode tmp = node;
-                while(tmp.getDown() != null) tmp = tmp.getDown();
-                tmp.setDown(node);
-                node.setUp(tmp);
-
-                node = (DLLHeader) node.getRight();
+    private void removeZeros() {
+        DLLHeader tmp = head;
+        while (tmp != null) {
+            DLLNode node = tmp.getDown();
+            while (node != null) {
+                if (node.getRow() == -1) {
+                    if (node.getDown() != null) {
+                        node.getUp().setDown(node.getDown());
+                        node.getDown().setUp(node.getUp());
+                    } else {
+                        node.getUp().setDown(null);
+                    }
+                    if (node.getLeft() != null && node.getRight() != null) {
+                        node.getRight().setLeft(node.getLeft());
+                        node.getLeft().setRight(node.getRight());
+                    } else if (node.getLeft() == null) {
+                        node.getRight().setLeft(null);
+                    } else {
+                        node.getLeft().setRight(null);
+                    }
+                }
+                node = node.getDown();
             }
+            tmp = (DLLHeader) tmp.getRight();
         }
-    */
+    }
+
     public DLLHeader getHead() {
         return head;
+    }
+
+    public void setHead(DLLHeader head) {
+        this.head = head;
     }
 
     public DLLHeader getHeaderFromNode(DLLNode node) {
