@@ -89,7 +89,6 @@ public class Solver {
         DLLHeader header = matrix.getHead();
         while (header != null) {
             if (header.getNumberOfElements() == 0) return true;
-            if (header.getDown() == null) return true;
             header = (DLLHeader) header.getRight();
         }
         return false;
