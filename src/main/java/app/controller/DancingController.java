@@ -2,14 +2,18 @@ package app.controller;
 
 import app.model.Generator;
 import app.model.Solver;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DancingController implements Initializable {
@@ -23,6 +27,9 @@ public class DancingController implements Initializable {
 
     @FXML
     private Label resultLabel;
+
+    @FXML
+    private ChoiceBox<Integer> rowBox, colBox;
 
     private GraphicsContext gc;
 
@@ -42,7 +49,7 @@ public class DancingController implements Initializable {
 
     @FXML
     private void generate() {
-        arr = generator.generate(4,4);
+        arr = generator.generate(rowBox.getValue(),colBox.getValue());
         drawMatrix();
 
     }
@@ -50,7 +57,18 @@ public class DancingController implements Initializable {
 
     @FXML
     private void solve() throws Exception {
-        solver.solve(arr);
+
+        try {
+            solver.solve(arr);
+            drawResult();
+        }catch (Exception ex){
+            drawError();
+        }
+
+
+    }
+
+    private void drawResult(){
         resultLabel.setText("Rows :" + solver.getSolves().toString());
 
         gc.setGlobalAlpha(0.3);
@@ -59,6 +77,15 @@ public class DancingController implements Initializable {
             gc.fillRect(0, i * rowSize, width, (rowSize));
         }
     }
+
+    private void drawError(){
+        resultLabel.setText("EXCEPTION : Matrix has not solution");
+        gc.setGlobalAlpha(0.3);
+        gc.setFill(Color.RED);
+        gc.fillRect(0, 0, width, height);
+
+    }
+
 
     private void drawMatrix() {
 
@@ -81,7 +108,8 @@ public class DancingController implements Initializable {
 
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
-                gc.fillText(String.valueOf(arr[j][i]), i * colSize + (colSize / 2), j * rowSize + (rowSize / 2 + 5));
+                gc.fillText(String.valueOf(arr[j][i]), i * colSize + (colSize /2), j * rowSize + (rowSize/2));
+
             }
         }
     }
@@ -89,6 +117,13 @@ public class DancingController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gc = canvas.getGraphicsContext2D();
+
+        ObservableList<Integer> options = FXCollections.observableArrayList(4,6,8,10,16,20,40);
+
+        rowBox.setValue(8);
+        colBox.setValue(8);
+        rowBox.setItems(options);
+        colBox.setItems(options);
     }
 
 
