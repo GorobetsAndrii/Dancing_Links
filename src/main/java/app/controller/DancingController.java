@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.model.Generator;
 import app.model.Solver;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ public class DancingController implements Initializable {
 
     private Solver solver;
 
+    private Generator generator;
 
     @FXML
     private Canvas canvas;
@@ -32,46 +34,33 @@ public class DancingController implements Initializable {
     private int colSize;
     private int rowSize;
 
-    @FXML
-    private void run() {
-        System.out.println("DRAW");
 
+    public DancingController(Solver solver, Generator generator){
+        this.solver = solver;
+        this.generator = generator;
+    }
+
+    @FXML
+    private void generate() {
+        arr = generator.generate(4,4);
         drawMatrix();
 
     }
 
 
     @FXML
-    private void solve() {
+    private void solve() throws Exception {
         solver.solve(arr);
-        resultLabel.setText("Rows :" + solver.solves.toString());
+        resultLabel.setText("Rows :" + solver.getSolves().toString());
 
         gc.setGlobalAlpha(0.3);
         gc.setFill(Color.GREEN);
-        for (int i : solver.solves) {
+        for (int i : solver.getSolves()) {
             gc.fillRect(0, i * rowSize, width, (rowSize));
         }
     }
 
-    private void generateArr() {
-        arr = new int[][]{
-                {0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1},
-                {0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0},
-                {1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0},
-                {0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0},
-                {0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0},
-                {0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0},
-                {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0},
-                {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1},
-                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1}};
-    }
-
-
     private void drawMatrix() {
-        generateArr(); // TODO change this
 
         width = canvas.getWidth();
         height = canvas.getHeight();
@@ -99,11 +88,7 @@ public class DancingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        solver = new Solver();
-
-
         gc = canvas.getGraphicsContext2D();
-
     }
 
 
