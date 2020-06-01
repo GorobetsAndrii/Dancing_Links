@@ -17,12 +17,6 @@ public class Generator {
     public void generate(int row, int column) {
         reset();
         createArray(row, column);
-        for (int i = 0; i < row; ++i) {
-            for (int j = 0; j < column; ++j) {
-                System.out.print(arr[i][j] + " ");
-            }
-            System.out.println();
-        }
         try {
             solver.solve(arr);
             answer = solver.getSolves();

@@ -88,15 +88,39 @@ public class App extends Application {
                 {0, 1, 0},
                 {1, 1, 1}};
 
+        int[][] arr7 = {
+                {0, 0, 0, 0},
+                {1, 0, 1, 0},
+                {0, 1, 0, 1},
+                {0, 0, 0, 0}};
+
+        int[][] arr8 = {
+                {0, 1, 1, 1},
+                {0, 1, 0, 0},
+                {1, 1, 0, 1},
+                {0, 0, 0, 1}};
+
+        int[][] arr9 = {
+                {1, 1, 0, 0},
+                {0, 1, 1, 0},
+                {1, 1, 1, 0},
+                {0, 0, 1, 1}};
 
         Solver solver = new Solver();
-        solver.solve(arr5);
+        solver.solve(arr9);
         solver.getSolves().stream()
                 .forEach(System.out::println);
 
+
         Generator generator = new Generator();
         for (int i = 0; i < 5; ++i) {
-            generator.generate(4, 4);
+            generator.generate(5, 5);
+            for (int j = 0; j < 5; ++j) {
+                for (int k = 0; k < 5; ++k) {
+                    System.out.print(generator.getArr()[j][k] + " ");
+                }
+                System.out.println();
+            }
             System.out.println(generator.getAnswer());
         }
 

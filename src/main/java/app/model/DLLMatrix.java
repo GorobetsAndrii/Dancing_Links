@@ -79,7 +79,7 @@ public class DLLMatrix {
                         node.getLeft().setRight(node.getRight());
                     } else if (node.getLeft() == null && node.getRight() != null) {
                         node.getRight().setLeft(null);
-                    } else {
+                    } else if (node.getLeft() != null) {
                         node.getLeft().setRight(null);
                     }
                 }
