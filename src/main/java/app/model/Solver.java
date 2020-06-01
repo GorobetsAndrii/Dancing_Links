@@ -10,8 +10,7 @@ public class Solver {
     private LinkedList<Integer> currentSolves;
 
     public Solver() {
-        solves = new LinkedList<>();
-        currentSolves = new LinkedList<>();
+
     }
 
     public void solve(int[][] tab) throws Exception {
@@ -50,6 +49,8 @@ public class Solver {
 
     public void init(int[][] tab) throws Exception {
         matrix = new DLLMatrix(tab);
+        solves = new LinkedList<>();
+        currentSolves = new LinkedList<>();
     }
 
     private Set<DLLHeader> getHeadersWithMinQuantityElem() {
