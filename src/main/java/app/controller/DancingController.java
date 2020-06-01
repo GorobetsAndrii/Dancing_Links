@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class DancingController implements Initializable {
@@ -38,18 +37,18 @@ public class DancingController implements Initializable {
     private double width;
     private double height;
 
-    private int colSize;
-    private int rowSize;
+    private double colSize;
+    private double rowSize;
 
 
-    public DancingController(Solver solver, Generator generator){
+    public DancingController(Solver solver, Generator generator) {
         this.solver = solver;
         this.generator = generator;
     }
 
     @FXML
     private void generate() {
-        arr = generator.generate(rowBox.getValue(),colBox.getValue());
+        arr = generator.generate(rowBox.getValue(), colBox.getValue());
         drawMatrix();
 
     }
@@ -61,14 +60,13 @@ public class DancingController implements Initializable {
         try {
             solver.solve(arr);
             drawResult();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             drawError();
         }
 
-
     }
 
-    private void drawResult(){
+    private void drawResult() {
         resultLabel.setText("Rows :" + solver.getSolves().toString());
 
         gc.setGlobalAlpha(0.3);
@@ -78,7 +76,7 @@ public class DancingController implements Initializable {
         }
     }
 
-    private void drawError(){
+    private void drawError() {
         resultLabel.setText("EXCEPTION : Matrix has not solution");
         gc.setGlobalAlpha(0.3);
         gc.setFill(Color.RED);
@@ -92,33 +90,36 @@ public class DancingController implements Initializable {
         width = canvas.getWidth();
         height = canvas.getHeight();
 
-        colSize = (int) (width / arr.length);
-        rowSize = (int) (height / arr[0].length);
-
         gc.clearRect(0, 0, width, height);
         gc.setGlobalAlpha(1);
         gc.setFill(Color.BLACK);
-        for (int i = 1; i < arr.length; i++) {
-            gc.strokeLine(i * colSize, 0, i * colSize, height);
-        }
 
-        for (int i = 1; i < arr[0].length; i++) {
+        rowSize = height / arr.length;
+        colSize = width / arr[0].length;
+
+        for (int i = 1; i < arr.length; i++) {
             gc.strokeLine(0, i * rowSize, width, i * rowSize);
         }
 
+        for (int i = 1; i < arr[0].length; i++) {
+            gc.strokeLine(i * colSize, 0, i * colSize, height);
+        }
+
+
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
-                gc.fillText(String.valueOf(arr[j][i]), i * colSize + (colSize /2), j * rowSize + (rowSize/2));
+                gc.fillText(String.valueOf(arr[i][j]), j * colSize + (colSize / 2), i * rowSize + (rowSize / 2));
 
             }
         }
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gc = canvas.getGraphicsContext2D();
 
-        ObservableList<Integer> options = FXCollections.observableArrayList(4,6,8,10,16,20,40);
+        ObservableList<Integer> options = FXCollections.observableArrayList(4, 6, 8, 10, 16, 20, 40);
 
         rowBox.setValue(8);
         colBox.setValue(8);
