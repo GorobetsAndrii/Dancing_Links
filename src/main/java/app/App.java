@@ -22,18 +22,20 @@ public class App extends Application {
 
     public static void main(String[] args) throws Exception {
         //answer: 2,3 (row indexes)
-        int[][] arr = {{0, 1, 0, 1, 0, 0},
+        int[][] arr = {
+                {0, 1, 0, 1, 0, 0},
                 {1, 0, 1, 0, 0, 0},
                 {1, 1, 1, 0, 0, 0},
                 {0, 0, 0, 1, 1, 1},
                 {0, 0, 0, 0, 1, 1}};
 
         //answer: 0,1 (row indexes)
-        int[][] arr1 = {{1, 0, 1},
+        int[][] arr1 = {
+                {1, 0, 1},
                 {0, 1, 0},
                 {1, 0, 1}};
 
-        //answer: 0,3,5 (row indexes)
+        //answer: 1,3,5 (row indexes)
         int[][] arr2 = {
                 {1, 0, 0, 1, 0, 0, 1},
                 {1, 0, 0, 1, 0, 0, 0},
@@ -42,7 +44,7 @@ public class App extends Application {
                 {0, 1, 1, 0, 0, 1, 1},
                 {0, 1, 0, 0, 0, 0, 1}};
 
-        //answer: 2,3,7 (row indexes)
+        //answer: 2,4 (row indexes)
         int[][] arr3 = {
                 {0, 1, 0, 0, 1, 0},
                 {1, 0, 0, 1, 0, 0},
@@ -80,8 +82,14 @@ public class App extends Application {
                 {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1},
                 {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1}};
 
+        int[][] arr6 = {
+                {0, 0, 1},
+                {0, 1, 0},
+                {1, 1, 1}};
+
+
         Solver solver = new Solver();
-        solver.solve(arr);
+        solver.solve(arr5);
         solver.solves.stream()
                 .forEach(System.out::println);
 
