@@ -1,5 +1,6 @@
 package app;
 
+import app.model.Generator;
 import app.model.Solver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -90,8 +91,14 @@ public class App extends Application {
 
         Solver solver = new Solver();
         solver.solve(arr5);
-        solver.solves.stream()
+        solver.getSolves().stream()
                 .forEach(System.out::println);
+
+        Generator generator = new Generator();
+        for (int i = 0; i < 5; ++i) {
+            generator.generate(4, 4);
+            System.out.println(generator.getAnswer());
+        }
 
         launch(args);
     }
