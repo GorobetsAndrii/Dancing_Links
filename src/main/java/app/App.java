@@ -143,15 +143,16 @@ public class App extends Application {
 
 
         Generator generator = new Generator();
-        generator.generate(5, 5);
-        for (int j = 0; j < 5; ++j) {
-            for (int k = 0; k < 5; ++k) {
-                System.out.print(generator.getArr()[j][k] + " ");
+        for (int i = 0; i < 5; ++i) {
+            generator.generate(5, 5);
+            for (int j = 0; j < 5; ++j) {
+                for (int k = 0; k < 5; ++k) {
+                    System.out.print(generator.getArr()[j][k] + " ");
+                }
+                System.out.println();
             }
-            System.out.println();
+            System.out.println(generator.getAnswer());
         }
-        System.out.println(generator.getAnswer());
-
         launch(args);
     }
 }
