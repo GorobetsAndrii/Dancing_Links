@@ -16,7 +16,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,18 +46,21 @@ public class DancingController implements Initializable {
     private double colSize;
     private double rowSize;
 
+    private boolean isClickedOnSolve;
+
 
     public DancingController(Solver solver, Generator generator, MatrixParser parser) {
         this.solver = solver;
         this.generator = generator;
         this.parser = parser;
+        this.isClickedOnSolve = false;
     }
 
     @FXML
     private void generate() {
+        isClickedOnSolve = false;
         arr = generator.generate(rowBox.getValue(), colBox.getValue());
         drawMatrix();
-
     }
 
     @FXML
@@ -77,18 +79,20 @@ public class DancingController implements Initializable {
 
     @FXML
     private void solve() throws Exception {
-
-        try {
-            solver.solve(arr);
-            if(solver.getSolves().size() == 0){
+        if (!isClickedOnSolve) {
+            try {
+                solver.solve(arr);
+                if (solver.getSolves().size() == 0) {
+                    drawError();
+                    return;
+                }
+                drawResult();
+            } catch (Exception ex) {
                 drawError();
-                return;
+            } finally {
+                isClickedOnSolve = true;
             }
-            drawResult();
-        } catch (Exception ex) {
-            drawError();
         }
-
     }
 
     private void drawResult() {

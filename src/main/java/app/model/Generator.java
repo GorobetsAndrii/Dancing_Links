@@ -12,7 +12,7 @@ public class Generator {
         int[][] matrix = new int[row][column];
         for (int i = 0; i < row; ++i) {
             for (int j = 0; j < column; ++j) {
-                matrix[i][j] = getSimpleNumber();
+                matrix[i][j] = getNumber();
             }
         }
         return matrix;
