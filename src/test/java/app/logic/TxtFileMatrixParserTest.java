@@ -1,4 +1,4 @@
-package app.controller.logic;
+package app.logic;
 
 import org.junit.Assert;
 import org.junit.Test;

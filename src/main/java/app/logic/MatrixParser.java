@@ -1,4 +1,4 @@
-package app.controller.logic;
+package app.logic;
 
 import java.io.File;
 

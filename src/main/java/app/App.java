@@ -1,6 +1,7 @@
 package app;
 
 import app.controller.DancingController;
+import app.logic.TxtFileMatrixParser;
 import app.model.Generator;
 import app.model.Solver;
 import javafx.application.Application;
@@ -18,10 +19,8 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
-        loader.setControllerFactory(c -> {
-            return new DancingController(new Solver(),new Generator());
-        });
-//        Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
+        loader.setControllerFactory(c -> new DancingController(new Solver(),new Generator(), new TxtFileMatrixParser()));
+
         Parent root = loader.load();
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();

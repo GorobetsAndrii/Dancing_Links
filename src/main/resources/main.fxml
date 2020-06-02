@@ -7,8 +7,9 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.DancingController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.DancingController">
    <children>
       <SplitPane dividerPositions="0.7474916387959866" prefHeight="500.0" prefWidth="800.0">
         <items>
@@ -30,14 +31,16 @@
                <children>
                   <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <content>
-                        <AnchorPane prefHeight="500.0" prefWidth="201.0">
+                        <AnchorPane prefHeight="500.0" prefWidth="201.0" styleClass="menu">
                            <children>
-                              <Button layoutX="49.0" layoutY="178.0" mnemonicParsing="false" onAction="#generate" text="Generate" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="49.0" />
+                              <Button layoutX="50.0" layoutY="191.0" mnemonicParsing="false" onAction="#generate" text="Generate" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="48.0" />
                               <ChoiceBox fx:id="rowBox" layoutX="80.0" layoutY="39.0" prefHeight="26.0" prefWidth="96.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="25.0" />
                               <ChoiceBox fx:id="colBox" layoutX="81.0" layoutY="85.0" prefHeight="26.0" prefWidth="95.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="25.0" />
                               <Label layoutX="21.0" layoutY="44.0" prefHeight="16.0" prefWidth="57.0" text="Row" />
                               <Label layoutX="24.0" layoutY="90.0" text="Column" />
-                              <Button layoutX="70.0" layoutY="250.0" mnemonicParsing="false" onAction="#solve" text="Solve" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="49.0" />
+                              <Button layoutX="50.0" layoutY="410.0" mnemonicParsing="false" onAction="#solve" stylesheets="@css/style.css" text="Solve" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="48.0" />
+                              <Button layoutX="39.0" layoutY="129.0" mnemonicParsing="false" onAction="#chooseFromFile" text="Choose from file" />
+                              <Text layoutX="94.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="or" />
                            </children>
                         </AnchorPane>
                      </content>

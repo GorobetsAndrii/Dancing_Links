@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.logic.MatrixParser;
 import app.model.Generator;
 import app.model.Solver;
 import javafx.collections.FXCollections;
@@ -11,7 +12,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,6 +25,8 @@ public class DancingController implements Initializable {
     private Solver solver;
 
     private Generator generator;
+
+    private MatrixParser parser;
 
     @FXML
     private Canvas canvas;
@@ -41,9 +48,10 @@ public class DancingController implements Initializable {
     private double rowSize;
 
 
-    public DancingController(Solver solver, Generator generator) {
+    public DancingController(Solver solver, Generator generator, MatrixParser parser) {
         this.solver = solver;
         this.generator = generator;
+        this.parser = parser;
     }
 
     @FXML
@@ -53,12 +61,29 @@ public class DancingController implements Initializable {
 
     }
 
+    @FXML
+    private void chooseFromFile(){
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text file","*.txt"));
+            File file=fileChooser.showOpenDialog(new Stage());
+            arr = parser.parseMatrix(file);
+            drawMatrix();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     @FXML
     private void solve() throws Exception {
 
         try {
             solver.solve(arr);
+            if(solver.getSolves().size() == 0){
+                drawError();
+                return;
+            }
             drawResult();
         } catch (Exception ex) {
             drawError();
