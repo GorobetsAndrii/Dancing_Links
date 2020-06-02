@@ -78,7 +78,6 @@ public class Solver {
         return min;
     }
 
-
     private Set<DLLNode> getRowsWithMaxQuantityElem(DLLHeader header) {
         DLLNode node = header.getDown();
         Set<DLLNode> result = new HashSet<>();
@@ -150,8 +149,8 @@ public class Solver {
             DLLNode down = h.getDown();
             while (down != null) {
                 DLLNode curr = down.getEndOfLeft();
+                removedNodes.add(curr);
                 while (curr != null) {
-                    removedNodes.add(curr);
                     if (curr.getDown() != null) {
                         curr.getUp().setDown(curr.getDown());
                         curr.getDown().setUp(curr.getUp());
