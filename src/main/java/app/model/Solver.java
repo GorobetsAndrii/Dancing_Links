@@ -56,16 +56,7 @@ public class Solver {
     private Set<DLLHeader> getHeadersWithMinQuantityElem() {
         DLLHeader tmp = matrix.getHead();
         Set<DLLHeader> result = new HashSet<>();
-        int min = Integer.MAX_VALUE;
-        while (tmp != null) {
-            if (tmp.getNumberOfElements() < min) {
-                min = tmp.getNumberOfElements();
-            }
-            tmp = (DLLHeader) tmp.getRight();
-        }
-
-        tmp = matrix.getHead();
-
+        int min = getMinHeader();
         while (tmp != null) {
             if (tmp.getNumberOfElements() == min) {
                 result.add(tmp);
@@ -75,25 +66,22 @@ public class Solver {
         return result;
     }
 
+    private int getMinHeader() {
+        DLLHeader tmp = matrix.getHead();
+        int min = Integer.MAX_VALUE;
+        while (tmp != null) {
+            if (tmp.getNumberOfElements() < min) {
+                min = tmp.getNumberOfElements();
+            }
+            tmp = (DLLHeader) tmp.getRight();
+        }
+        return min;
+    }
+
     private Set<DLLNode> getRowsWithMaxQuantityElem(DLLHeader header) {
         DLLNode node = header.getDown();
         Set<DLLNode> result = new HashSet<>();
-
-        int maxQuantity = -1;
-        while (node != null) {
-            int quantity = 0;
-            DLLNode tmp = node;
-            while (tmp != null) {
-                quantity++;
-                tmp = tmp.getRight();
-            }
-            if (quantity > maxQuantity) {
-                maxQuantity = quantity;
-            }
-            node = node.getDown();
-        }
-
-        node = header.getDown();
+        int maxQuantity = getMaxQuantityInRows(header);
 
         while (node != null) {
             int quantity = 0;
@@ -110,6 +98,24 @@ public class Solver {
         }
 
         return result;
+    }
+
+    private int getMaxQuantityInRows(DLLHeader header) {
+        DLLNode node = header.getDown();
+        int maxQuantity = -1;
+        while (node != null) {
+            int quantity = 0;
+            DLLNode tmp = node;
+            while (tmp != null) {
+                quantity++;
+                tmp = tmp.getRight();
+            }
+            if (quantity > maxQuantity) {
+                maxQuantity = quantity;
+            }
+            node = node.getDown();
+        }
+        return maxQuantity;
     }
 
     private boolean checkSolve() {
@@ -130,7 +136,7 @@ public class Solver {
         Set<DLLNode> removedNodes = new HashSet<>();
         RowsAndColumns rowsAndColumns = new RowsAndColumns();
 
-        while (node.getRight() != null) node = node.getRight();
+        node = node.getEndOfRight();
 
         while (node != null) {
             headers.add(matrix.getHeaderFromNode(node));
@@ -142,10 +148,9 @@ public class Solver {
         for (DLLNode h : headers) {
             DLLNode down = h.getDown();
             while (down != null) {
-                DLLNode curr = down;
-                while (curr.getLeft() != null) curr = curr.getLeft();
+                DLLNode curr = down.getEndOfLeft();
+                removedNodes.add(curr);
                 while (curr != null) {
-                    removedNodes.add(curr);
                     if (curr.getDown() != null) {
                         curr.getUp().setDown(curr.getDown());
                         curr.getDown().setUp(curr.getUp());

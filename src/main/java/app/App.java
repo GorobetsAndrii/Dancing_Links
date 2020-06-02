@@ -38,7 +38,15 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws Exception {
+        int[][] arr = {
+                {0, 1, 1, 0},
+                {0, 1, 0, 1},
+                {1, 0, 0, 0},
+                {1, 1, 0, 0}};
 
+        Solver solver = new Solver();
+        solver.solve(arr);
+        System.out.println(solver.getSolves());
         launch(args);
     }
 }

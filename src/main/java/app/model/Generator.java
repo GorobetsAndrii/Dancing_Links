@@ -22,4 +22,9 @@ public class Generator {
         Random random = new Random();
         return random.nextInt(2);
     }
+
+    private int getNumber() {
+        Random random = new Random();
+        return (random.nextInt(2) | random.nextInt(2)) == 1 ? 0 : 1;
+    }
 }
