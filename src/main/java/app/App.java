@@ -39,14 +39,20 @@ public class App extends Application {
 
     public static void main(String[] args) throws Exception {
         int[][] arr = {
-                {0, 1, 1, 0},
-                {0, 1, 0, 1},
-                {1, 0, 0, 0},
-                {1, 1, 0, 0}};
+                {0, 0, 0, 1, 0, 0, 1, 0}, //0
+                {1, 0, 0, 0, 1, 0, 0, 1}, //1
+                {0, 1, 0, 0, 1, 0, 0, 0}, //2
+                {0, 1, 0, 0, 0, 0, 0, 0}, //3
+                {0, 0, 0, 0, 0, 1, 0, 1}, //4
+                {0, 0, 0, 0, 0, 0, 0, 0}, //5
+                {0, 0, 1, 0, 0, 0, 0, 1}, //6
+                {0, 0, 0, 1, 1, 0, 0, 0}};//7
 
         Solver solver = new Solver();
-        solver.solve(arr);
-        System.out.println(solver.getSolves());
+        for (int i = 0; i < 100; ++i) {
+            solver.solve(arr);
+            System.out.println(solver.getSolves());
+        }
         launch(args);
     }
 }

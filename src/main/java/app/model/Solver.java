@@ -1,6 +1,6 @@
 package app.model;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -55,7 +55,7 @@ public class Solver {
 
     private Set<DLLHeader> getHeadersWithMinQuantityElem() {
         DLLHeader tmp = matrix.getHead();
-        Set<DLLHeader> result = new HashSet<>();
+        Set<DLLHeader> result = new LinkedHashSet<>();
         int min = getMinHeader();
         while (tmp != null) {
             if (tmp.getNumberOfElements() == min) {
@@ -80,7 +80,7 @@ public class Solver {
 
     private Set<DLLNode> getRowsWithMaxQuantityElem(DLLHeader header) {
         DLLNode node = header.getDown();
-        Set<DLLNode> result = new HashSet<>();
+        Set<DLLNode> result = new LinkedHashSet<>();
         int maxQuantity = getMaxQuantityInRows(header);
 
         while (node != null) {
@@ -132,8 +132,8 @@ public class Solver {
     }
 
     public RowsAndColumns removeRowsAndColumns(DLLNode node) {
-        Set<DLLHeader> headers = new HashSet<>();
-        Set<DLLNode> removedNodes = new HashSet<>();
+        Set<DLLHeader> headers = new LinkedHashSet<>();
+        Set<DLLNode> removedNodes = new LinkedHashSet<>();
         RowsAndColumns rowsAndColumns = new RowsAndColumns();
 
         node = node.getEndOfRight();
