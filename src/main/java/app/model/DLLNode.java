@@ -61,4 +61,16 @@ public class DLLNode {
         this.down = down;
     }
 
+    public DLLNode getEndOfRight() {
+        DLLNode node = this;
+        while (node.getRight() != null) node = node.getRight();
+        return node;
+    }
+
+    public DLLNode getEndOfLeft() {
+        DLLNode node = this;
+        while (node.getLeft() != null) node = node.getLeft();
+        return node;
+    }
+
 }
