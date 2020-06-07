@@ -1,0 +1,12 @@
+.button{
+    /*-fx-background-color: red;*/
+}
+
+.button:hover{
+    /*-fx-background-color: green;*/
+    -fx-cursor: hand;
+}
+
+/*.menu{*/
+/*    -fx-background-color: saddlebrown;*/
+/*}*/
