@@ -3,7 +3,7 @@ package app;
 import app.controller.DancingController;
 import app.logic.TxtFileMatrixParser;
 import app.model.Generator;
-import app.model.Solver;
+import app.model.SecondSolver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +19,7 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
-        loader.setControllerFactory(c -> new DancingController(new Solver(),new Generator(), new TxtFileMatrixParser()));
+        loader.setControllerFactory(c -> new DancingController(new SecondSolver(), new Generator(), new TxtFileMatrixParser()));
 
         Parent root = loader.load();
         root.setOnMousePressed(event -> {
@@ -48,7 +48,7 @@ public class App extends Application {
                 {0, 0, 1, 0, 0, 0, 0, 1}, //6
                 {0, 0, 0, 1, 1, 0, 0, 0}};//7
 
-        Solver solver = new Solver();
+        SecondSolver solver = new SecondSolver();
         for (int i = 0; i < 100; ++i) {
             solver.solve(arr);
             System.out.println(solver.getSolves());
