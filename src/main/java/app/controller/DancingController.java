@@ -2,7 +2,7 @@ package app.controller;
 
 import app.logic.MatrixParser;
 import app.model.Generator;
-import app.model.SolverImpl2;
+import app.model.SolverMinimalCover;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class DancingController implements Initializable {
 
-    private SolverImpl2 solver;
+    private SolverMinimalCover solver;
 
     private Generator generator;
 
@@ -49,7 +49,7 @@ public class DancingController implements Initializable {
     private boolean isClickedOnSolve;
 
 
-    public DancingController(SolverImpl2 solver, Generator generator, MatrixParser parser) {
+    public DancingController(SolverMinimalCover solver, Generator generator, MatrixParser parser) {
         this.solver = solver;
         this.generator = generator;
         this.parser = parser;
