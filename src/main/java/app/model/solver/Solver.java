@@ -33,7 +33,7 @@ public abstract class Solver {
         currentSolves = new LinkedList<>();
     }
 
-    protected void process() {
+    private void process() {
         if (checkZerosColumn()) {
             return;
         }
@@ -62,17 +62,8 @@ public abstract class Solver {
         }
     }
 
-    protected boolean checkSolve() {
+    private boolean checkSolve() {
         return matrix.getHead() == null;
-    }
-
-    protected boolean checkZerosColumn() {
-        DLLHeader header = matrix.getHead();
-        while (header != null) {
-            if (header.getNumberOfElements() == 0) return true;
-            header = (DLLHeader) header.getRight();
-        }
-        return false;
     }
 
     protected void removeColumns(Set<DLLHeader> headers) {
@@ -91,7 +82,16 @@ public abstract class Solver {
         }
     }
 
-    protected Set<DLLHeader> getHeadersWithMinQuantityElem() {
+    private boolean checkZerosColumn() {
+        DLLHeader header = matrix.getHead();
+        while (header != null) {
+            if (header.getNumberOfElements() == 0) return true;
+            header = (DLLHeader) header.getRight();
+        }
+        return false;
+    }
+
+    private Set<DLLHeader> getHeadersWithMinQuantityElem() {
         DLLHeader tmp = matrix.getHead();
         Set<DLLHeader> result = new LinkedHashSet<>();
         int min = getMinHeader();
@@ -104,7 +104,7 @@ public abstract class Solver {
         return result;
     }
 
-    protected Set<DLLNode> getRowsWithMaxQuantityElem(DLLHeader header) {
+    private Set<DLLNode> getRowsWithMaxQuantityElem(DLLHeader header) {
         DLLNode node = header.getDown();
         Set<DLLNode> result = new LinkedHashSet<>();
         int maxQuantity = getMaxQuantityInRows(header);
@@ -126,7 +126,7 @@ public abstract class Solver {
         return result;
     }
 
-    protected void returnRowsAndColumns(RowsAndColumns rowsAndColumns) {
+    private void returnRowsAndColumns(RowsAndColumns rowsAndColumns) {
         returnColumns(rowsAndColumns.headers);
 
         for (DLLNode row : rowsAndColumns.rows) {
@@ -143,7 +143,7 @@ public abstract class Solver {
         }
     }
 
-    protected int getMinHeader() {
+    private int getMinHeader() {
         DLLHeader tmp = matrix.getHead();
         int min = Integer.MAX_VALUE;
         while (tmp != null) {
@@ -155,7 +155,7 @@ public abstract class Solver {
         return min;
     }
 
-    protected int getMaxQuantityInRows(DLLHeader header) {
+    private int getMaxQuantityInRows(DLLHeader header) {
         DLLNode node = header.getDown();
         int maxQuantity = -1;
         while (node != null) {
@@ -173,7 +173,7 @@ public abstract class Solver {
         return maxQuantity;
     }
 
-    protected void returnColumns(Set<DLLHeader> headers) {
+    private void returnColumns(Set<DLLHeader> headers) {
         for (DLLHeader header : headers) {
             if (header.getLeft() != null && header.getRight() != null) {
                 header.getLeft().setRight(header);

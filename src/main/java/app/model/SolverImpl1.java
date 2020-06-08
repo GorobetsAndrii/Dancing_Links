@@ -3,7 +3,6 @@ package app.model;
 import app.model.solver.Solver;
 
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 public class SolverImpl1 extends Solver {
