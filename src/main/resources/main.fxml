@@ -39,7 +39,7 @@
                               <Label layoutX="21.0" layoutY="44.0" prefHeight="16.0" prefWidth="57.0" text="Row" />
                               <Label layoutX="24.0" layoutY="90.0" text="Column" />
                               <Button layoutX="50.0" layoutY="410.0" mnemonicParsing="false" onAction="#solve" stylesheets="@css/style.css" text="Solve" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="48.0" />
-                              <Button layoutX="39.0" layoutY="129.0" mnemonicParsing="false" onAction="#chooseFromFile" text="Choose from file" />
+                              <Button layoutX="39.0" layoutY="129.0" mnemonicParsing="false" onAction="#chooseFromFile" text="Choose from file" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
                               <Text layoutX="94.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="or" />
                            </children>
                         </AnchorPane>
