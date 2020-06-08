@@ -37,22 +37,7 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws Exception {
-        int[][] arr = {
-                {0, 0, 0, 1, 0, 0, 1, 0}, //0
-                {1, 0, 0, 0, 1, 0, 0, 1}, //1
-                {0, 1, 0, 0, 1, 0, 0, 0}, //2
-                {0, 1, 0, 0, 0, 0, 0, 0}, //3
-                {0, 0, 0, 0, 0, 1, 0, 1}, //4
-                {0, 0, 0, 0, 0, 0, 0, 0}, //5
-                {0, 0, 1, 0, 0, 0, 0, 1}, //6
-                {0, 0, 0, 1, 1, 0, 0, 0}};//7
-
-        SecondSolver solver = new SecondSolver();
-        for (int i = 0; i < 100; ++i) {
-            solver.solve(arr);
-            System.out.println(solver.getSolves());
-        }
+    public static void main(String[] args) {
         launch(args);
     }
 }

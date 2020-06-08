@@ -66,6 +66,7 @@ public class DancingController implements Initializable {
     @FXML
     private void chooseFromFile(){
         try {
+            isClickedOnSolve = false;
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text file","*.txt"));
             File file=fileChooser.showOpenDialog(new Stage());
@@ -78,7 +79,7 @@ public class DancingController implements Initializable {
 
 
     @FXML
-    private void solve() throws Exception {
+    private void solve() {
         if (!isClickedOnSolve) {
             try {
                 solver.solve(arr);
