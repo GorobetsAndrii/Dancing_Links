@@ -1,7 +1,8 @@
 package app.controller;
 
 import app.logic.MatrixParser;
-import app.model.Generator;
+import app.model.generator.GenerateMethod;
+import app.model.generator.Generator;
 import app.model.SolverMinimalCover;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class DancingController implements Initializable {
@@ -27,6 +29,8 @@ public class DancingController implements Initializable {
 
     private MatrixParser parser;
 
+    private Random random;
+
     @FXML
     private Canvas canvas;
 
@@ -35,6 +39,8 @@ public class DancingController implements Initializable {
 
     @FXML
     private ChoiceBox<Integer> rowBox, colBox;
+    @FXML
+    private ChoiceBox<String>  drawRate;
 
     private GraphicsContext gc;
 
@@ -59,9 +65,11 @@ public class DancingController implements Initializable {
     @FXML
     private void generate() {
         isClickedOnSolve = false;
-        arr = generator.generate(rowBox.getValue(), colBox.getValue());
+        arr = generator.generate(rowBox.getValue(), colBox.getValue(), generateMethod());
         drawMatrix();
     }
+
+
 
     @FXML
     private void chooseFromFile(){
@@ -94,6 +102,16 @@ public class DancingController implements Initializable {
                 isClickedOnSolve = true;
             }
         }
+    }
+
+    private GenerateMethod generateMethod(){
+        switch (drawRate.getValue()){
+            case "1:1":
+                return () -> random.nextInt(2);
+            case "1:3":
+                return () -> (random.nextInt(100) <=75) ? 0: 1;
+        }
+        return null;
     }
 
     private void drawResult() {
@@ -157,13 +175,16 @@ public class DancingController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gc = canvas.getGraphicsContext2D();
-
+        random = new Random();
         ObservableList<Integer> options = FXCollections.observableArrayList(4, 6, 8, 10, 16, 20, 40);
 
         rowBox.setValue(8);
         colBox.setValue(8);
         rowBox.setItems(options);
         colBox.setItems(options);
+        drawRate.setValue("1:1");
+        drawRate.setItems(FXCollections.observableArrayList("1:1","1:3"));
+
     }
 
 

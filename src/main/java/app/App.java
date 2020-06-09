@@ -2,8 +2,8 @@ package app;
 
 import app.controller.DancingController;
 import app.logic.TxtFileMatrixParser;
-import app.model.Generator;
 import app.model.SolverMinimalCover;
+import app.model.generator.Generator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
