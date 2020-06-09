@@ -37,18 +37,7 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws Exception {
-        int[][] arr = {
-                {0, 0, 0, 0, 1, 1},
-                {1, 0, 0, 1, 1, 0},
-                {1, 0, 0, 1, 1, 1},
-                {0, 1, 0, 1, 0, 0},
-                {0, 0, 0, 1, 1, 0},
-                {1, 0, 1, 0, 1, 0}};
-        SolverMinimalCover solver = new SolverMinimalCover();
-        solver.solve(arr);
-        System.out.println(solver.getSolves());
-
+    public static void main(String[] args) {
         launch(args);
     }
 }
