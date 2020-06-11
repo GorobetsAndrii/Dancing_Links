@@ -66,21 +66,7 @@ public abstract class Solver {
         return matrix.getHead() == null;
     }
 
-    protected void removeColumns(Set<DLLHeader> headers) {
-        for (DLLHeader header : headers) {
-            if (header.getLeft() != null && header.getRight() != null) {
-                header.getLeft().setRight(header.getRight());
-                header.getRight().setLeft(header.getLeft());
-            } else if (header.getLeft() == null && header.getRight() != null) {
-                header.getRight().setLeft(null);
-                matrix.setHead((DLLHeader) header.getRight());
-            } else if (header.getLeft() != null) {
-                header.getLeft().setRight(null);
-            } else {
-                matrix.setHead(null);
-            }
-        }
-    }
+    protected abstract void removeColumns(Set<DLLHeader> headers);
 
     private boolean checkZerosColumn() {
         DLLHeader header = matrix.getHead();
@@ -173,20 +159,6 @@ public abstract class Solver {
         return maxQuantity;
     }
 
-    private void returnColumns(Set<DLLHeader> headers) {
-        for (DLLHeader header : headers) {
-            if (header.getLeft() != null && header.getRight() != null) {
-                header.getLeft().setRight(header);
-                header.getRight().setLeft(header);
-            } else if (header.getLeft() == null && header.getRight() != null) {
-                header.getRight().setLeft(header);
-                matrix.setHead(header);
-            } else if (header.getLeft() != null) {
-                header.getLeft().setRight(header);
-            } else {
-                matrix.setHead(header);
-            }
-        }
-    }
+    protected abstract void returnColumns(Set<DLLHeader> headers);
 
 }

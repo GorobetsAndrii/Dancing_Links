@@ -39,11 +39,41 @@ public class SolverExactCover extends Solver {
                 down = down.getDown();
             }
         }
-
         rowsAndColumns.rows = removedNodes;
         removeColumns(headers);
         return rowsAndColumns;
     }
 
+    protected void removeColumns(Set<DLLHeader> headers) {
+        for (DLLHeader header : headers) {
+            if (header.getLeft() != null && header.getRight() != null) {
+                header.getLeft().setRight(header.getRight());
+                header.getRight().setLeft(header.getLeft());
+            } else if (header.getLeft() == null && header.getRight() != null) {
+                header.getRight().setLeft(null);
+                matrix.setHead((DLLHeader) header.getRight());
+            } else if (header.getLeft() != null) {
+                header.getLeft().setRight(null);
+            } else {
+                matrix.setHead(null);
+            }
+        }
+    }
+
+    protected void returnColumns(Set<DLLHeader> headers) {
+        for (DLLHeader header : headers) {
+            if (header.getLeft() != null && header.getRight() != null) {
+                header.getLeft().setRight(header);
+                header.getRight().setLeft(header);
+            } else if (header.getLeft() == null && header.getRight() != null) {
+                header.getRight().setLeft(header);
+                matrix.setHead(header);
+            } else if (header.getLeft() != null) {
+                header.getLeft().setRight(header);
+            } else {
+                matrix.setHead(header);
+            }
+        }
+    }
 
 }
